@@ -5,6 +5,10 @@ import cv2
 import random
 from datetime import datetime
 
+from PyQt5.QtWidgets import QApplication
+import sys
+import win32gui
+
 def connect():
     try:
         os.system('adb connect 127.0.0.1:7555')
@@ -15,9 +19,22 @@ def click(list):
     os.system('adb shell input tap %s %s' % (list[0], list[1]))
 
 def screenshot():
+    # nowa = int(round(time.time() * 1000))
     path = os.path.abspath('.') + '\images'
-    os.system('adb shell screencap /data/screen.png')
-    os.system('adb pull /data/screen.png %s' % path)
+    # os.system('adb shell screencap /data/screen.png')
+    # os.system('adb pull /data/screen.png %s' % path)
+    
+    # 使用FindWindow查找指定title的窗口句柄 找不到返回None
+    hwnd = win32gui.FindWindow(None, '阴阳师 - MuMu模拟器')
+    app = QApplication(sys.argv)
+    screen = QApplication.primaryScreen()
+    # 如果hwnd是None 那么就会截取当前屏幕，否则就去截取指定窗口句柄的进程
+    img = screen.grabWindow(hwnd).toImage()
+    img.save(path+"\screen.png")
+
+    # nowb = int(round(time.time() * 1000))
+    # print(nowb-nowa)
+
 
 def Image_to_position(image, m = 0):
     image_path = 'images/' + str(image)
@@ -27,7 +44,7 @@ def Image_to_position(image, m = 0):
     image_x, image_y = Image_to_position.shape[:2]
     result = cv2.matchTemplate(screen, Image_to_position, methods[m])
     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(result)
-    # print(max_val)
+    print(max_val)
     if max_val > 0.9:
         global center
         center = [max_loc[0] + image_y / 2, max_loc[1] + image_x / 2]
