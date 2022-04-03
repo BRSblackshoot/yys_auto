@@ -35,7 +35,6 @@ def screenshot():
     # nowb = int(round(time.time() * 1000))
     # print(nowb-nowa)
 
-
 def Image_to_position(image, m = 0):
     image_path = 'images/' + str(image)
     screen = cv2.imread('images/screen.png', 1)
