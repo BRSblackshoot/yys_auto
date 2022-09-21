@@ -53,10 +53,17 @@ def run():
         if Image_to_position("tiaozhan.png"):
             click(center)
         if Image_to_position("zhunbei.png"):
+            print("开始新一轮战斗")
             click(center)
         if Image_to_position("end.png"):
             click(center)
         if Image_to_position("end2.png"):
+            click(center)
+        if Image_to_position("shibai.png"):
+            print("出现失败")
+            click(center)
+        if Image_to_position("jujuexiezhu.png"):
+            print("出现协助悬赏，拒绝了")
             click(center)
 
 if __name__ == '__main__':
