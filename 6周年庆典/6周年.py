@@ -61,6 +61,9 @@ def run():
         if Image_to_position("jujuexiezhu.png"):
             print("出现协助悬赏，拒绝了")
             click(center)
+        if Image_to_position("zhandou.png"):
+            print("可能卡顿导致后续点击操作点在了空白地带，导致界面从战斗变回了场景，已经解决")
+            click(center)
 
 if __name__ == '__main__':
     connect()
