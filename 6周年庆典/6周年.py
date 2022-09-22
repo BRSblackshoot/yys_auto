@@ -47,6 +47,12 @@ def run():
     i = 0
     while True:
         screenshot()
+        if Image_to_position("yongwandaoju.png"):
+            Image_to_position("zhuanhuan.png")
+            print("道具刷完，切换到体力模式继续刷")
+            click(center)
+            time.sleep(1)
+            click(center)
         if Image_to_position("tiaozhan.png"):
             i=i+1
             print("开始第{}次挑战".format(i))
@@ -64,6 +70,9 @@ def run():
         if Image_to_position("zhandou.png"):
             print("可能卡顿导致后续点击操作点在了空白地带，导致界面从战斗变回了场景，已经解决")
             click(center)
+        if Image_to_position("yidashangxian.png"):
+            print("已达体力挑战的999上限，任务结束")
+            break
 
 if __name__ == '__main__':
     connect()
