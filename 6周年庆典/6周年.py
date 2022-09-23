@@ -4,6 +4,7 @@ import os,time
 import cv2
 import random
 from datetime import datetime
+from plyer import notification #pip install plyer
 
 def connect():
     try:
@@ -72,6 +73,12 @@ def run():
             click(center)
         if Image_to_position("yidashangxian.png"):
             print("已达体力挑战的999上限，任务结束")
+            notification.notify(
+                title = '阴阳师脚本',
+                message = '已达体力挑战的999上限，任务结束',
+                app_icon = None,
+                timeout = 60,
+            )
             break
 
 if __name__ == '__main__':
