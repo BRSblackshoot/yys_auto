@@ -94,10 +94,11 @@ def run():
             click(center)
         if Image_to_position("tingzhong.png"):
             click(center)
-            time.sleep(20)
-            click(随机数([259,466]))
         if Image_to_position("duiyianniu.png"):
             click(center)
+        # 如果脚本24小时在线 那么在凌晨五点会发现町中出现百鬼夜行 对弈竞猜等界面没了 会导致程序卡住 所以要加这一层判断 自动返回庭院 重进町中
+        if Image_to_position("yanjin.png"):
+            click(随机数(1060,260))
 
         #点开第一眼发现是领取奖励 那么领取 然后重新截图判断 两张图分别是界面显示领取奖励 和 点进去后再次点击屏幕返回对弈界面  (等待)
         if Image_to_position("jiangli1.png"):
@@ -175,12 +176,13 @@ if __name__ == '__main__':
     reader = easyocr.Reader(['ch_sim','en'],gpu=False)
     # 这个方法就是用来让我不用顾忌啥时候开程序 当分钟数处于25-30区间 并且是小时数为奇数 才正式进入后续的操作任务 保证以后的每次竞猜都是在这个区间去读对弈阵容双方的下注人数
     # 不过假设现在是19:31 那就直接手动投了18:00-20:00这轮的对弈吧 因为脚本会一直等到21:26才正式进入后续操作 此时对应的是20:00-22:00的对弈
-    limit()
+    # limit()
     while True:
         now1=time.time()
         run()
         #执行一次后休息10分钟 然后再执行一次 确保无误
-        time.sleep(10*60)
+        # time.sleep(10*60)
+        time.sleep(60)
         run()
         now2=time.time()
         #通过计算 确保整个循环大致以2小时为单位
