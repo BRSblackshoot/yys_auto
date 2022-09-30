@@ -90,6 +90,9 @@ def run():
         # 启动游戏 进入对弈界面
         if Image_to_position("yys.png"):
             click(center)
+        # 我的账号是渠道服 有时候会弹出选择账号的界面 此时单击账号头像 就能正常执行后续操作了
+        if Image_to_position("zhanghao.png"):
+            click(center)
         if Image_to_position("jinru.png"):
             click(center)
         if Image_to_position("tingzhong.png"):
