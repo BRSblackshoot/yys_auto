@@ -166,7 +166,7 @@ def limit():
         H = time.strftime("%H",time.localtime())
         M = time.strftime("%M",time.localtime())
         if(int(H)%2==1):
-            if(int(M)>35 and int(M)<40):
+            if(int(M)>45 and int(M)<50):
                 break
         time.sleep(60)
 
@@ -178,11 +178,16 @@ if __name__ == '__main__':
     # 初始化easyocr 默认安装的是 pytorch 的 cpu 版本 不支持GPU渲染 但是gpu参数默认为True 所以这里手动将gpu设置为False
     reader = easyocr.Reader(['ch_sim','en'],gpu=False)
     # 这个方法就是用来让我不用顾忌啥时候开程序 当分钟数处于指定区间 并且是小时数为奇数 才正式进入后续的操作任务 保证以后的每次竞猜都是在这个区间去读对弈阵容双方的下注人数
-    # 不过假设现在是19:41 那就直接手动投了18:00-20:00这轮的对弈吧 因为脚本会一直等到21:36才正式进入后续操作 此时对应的是20:00-22:00的对弈
+    # 不过假设现在是19:51 那就直接手动投了18:00-20:00这轮的对弈吧 因为脚本会一直等到21:46才正式进入后续操作 此时对应的是20:00-22:00的对弈
     limit()
     while True:
-        now1=time.time()
-        run()
-        now2=time.time()
-        #通过计算 确保整个循环大致以2小时为单位
-        time.sleep(2*60*60-int((now2-now1)))
+        # 现在的对弈都不是24小时了，比如这次是10：00~24：00，所以可以在每次循环时判断当前时间是否在区间内，如果不在那就直接休眠2小时
+        H = time.strftime("%H",time.localtime())
+        if int(H)>=0 and int(H)<10:
+            time.sleep(2*60*60)
+        else:
+            now1=time.time()
+            run()
+            now2=time.time()
+            #通过计算 确保整个循环大致以2小时为单位
+            time.sleep(2*60*60-int((now2-now1)))
