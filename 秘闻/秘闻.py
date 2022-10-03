@@ -4,6 +4,7 @@ import os,time
 import cv2
 import random
 from datetime import datetime
+from plyer import notification #pip install plyer
 
 def connect():
     try:
@@ -49,6 +50,12 @@ def run():
         if Image_to_position("jiemian.png"):
             if not Image_to_position("shangweitongguan.png"):
                 print("秘闻已通关")
+                notification.notify(
+                title = '阴阳师脚本',
+                message = '秘闻已通关，任务结束',
+                app_icon = None,
+                timeout = 60,
+                )   
                 break
         if Image_to_position("tiaozhan.png"):
             click(center)
@@ -59,8 +66,10 @@ def run():
             click(center)
         if Image_to_position("end2.png"):
             click(center)
-        if Image_to_position("shibai.png"):
-            print("出现失败")
+        if Image_to_position("queren.png"):
+            click(center)
+        if Image_to_position("again.png"):
+            print("出现失败，再次挑战")
             click(center)
         if Image_to_position("jujuexiezhu.png"):
             print("出现协助悬赏，拒绝了")
