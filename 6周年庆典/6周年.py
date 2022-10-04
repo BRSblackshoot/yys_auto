@@ -15,6 +15,9 @@ def connect():
 def click(list):
     os.system('adb shell input tap %s %s' % (list[0], list[1]))
 
+def back():
+    os.system('adb shell input keyevent 4')
+
 def screenshot(): 
     path = os.path.abspath('.') + '\images'
     # 改进方式1
@@ -48,6 +51,10 @@ def run():
     i = 0
     while True:
         screenshot()
+        #只要检测到返回图标 说明之前要做的操作都完成了 直接点击 跳出循环
+        if Image_to_position("jieshu.png"):
+            click(center)
+            break
         if Image_to_position("yongwandaoju.png"):
             Image_to_position("zhuanhuan.png")
             print("道具刷完，切换到体力模式继续刷")
@@ -79,7 +86,7 @@ def run():
                 app_icon = None,
                 timeout = 60,
             )
-            break
+            back()
 
 if __name__ == '__main__':
     connect()
